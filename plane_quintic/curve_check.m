@@ -2,7 +2,7 @@
 
   Use this script to generate torsion prime data:
 
-    ls ./data/ | parallel  "magma -b InputFileName:={} curve_check.m"
+    ls ./data/ | parallel -j25 "magma -b InputFileName:={} curve_check.m"
 
   This will take the data files in `./data/`, and for each curve in each file,
   will generate a new file (appended with `with_genus`) in the same directory.
@@ -26,7 +26,7 @@ GenusCheck := function(_fsupp)
         pol +:= monos5[i+1];
     end for;
     Y := Scheme(X,pol);
-    if Dimension(Y) eq 1 and IsIrreducible(Y) eq true or IsReduced(Y) eq true then
+    if Dimension(Y) eq 1 and IsIrreducible(Y) eq true and IsReduced(Y) eq true then
         C := Curve(Y);
         F0 := FunctionField(C);
         F := AlgorithmicFunctionField(F0);
