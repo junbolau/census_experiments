@@ -1,0 +1,18 @@
+41  10:39   find ./ -type f | perl -ne 'chomp;s/\.\///;print `magma -b InputFileName:=$_ ../curve_check.m &`'
+42  10:41   find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../curve_check.m &\n"' > RUN
+44  10:41   emacs -nw RUN  #### add ```#!/bin/sh``` on top for script file
+45  10:42   chmod u+x RUN
+46  10:42   ./RUN
+52  10:45   ps auxw | grep magma 
+53  10:45   dir
+54  10:46   more HISTORY
+55  10:46   dir *.txt
+56  10:47   more ../curve_check.m
+58  10:48   ls -als
+59  10:49   nano curve_check.m
+60  10:49   pico ../curve_check.m
+61  10:53   ls RUN
+62  10:53   more RUN
+63  10:56   wc -l RUN
+64  11:01   history > HISTORY
+
