@@ -6,14 +6,14 @@
     
   (current) If parallel does not work, run this script within /data/ directory :
   
-  find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../curve_check.m &\n"' > RUN
+  find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN
   emacs -nw RUN
   chmod u+x RUN
   ./RUN
   
   Comments on the current method:
-  - find ./ -type f | grep txt | grep^ $FILE_NAME_BEGINNING | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../curve_check.m &\n"' > RUN
-  - writes a bash script file to run magma file in parallel. need to select files with certain beginnings
+  - find ./ -type f | grep txt | grep ^./with  | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN
+  - writes a bash script file to run magma file in parallel. need to select files with certain beginnings, #!/bin/sh on top on RUN
   - use several data folders to manage batches (BU server limit)
   - approx 30-35 .txt files in each data folder
 
