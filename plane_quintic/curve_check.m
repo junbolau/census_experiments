@@ -31,19 +31,26 @@ GenusCheck := function(_fsupp)
         F0 := FunctionField(C);
         F := AlgorithmicFunctionField(F0);
         if Genus(F) eq 6 then
-            return true;
+            ct := "[";
+            for n in [1..4] do
+                ct :=  ct cat IntegerToString(NumberOfPlacesOfDegreeOneECF(F,n)) cat ",";
+            end for;
+            Prune(~ct);
+            ct := ct cat "]"; 
+            return true, ct;
         else
-            return false;
+            return false, "";
         end if; 
     else
-        return false;
+        return false, "";
     end if;
 end function;
     
 
 for MyLine in LinesOfInputFile do
-    if GenusCheck(MyLine) eq true then
-        to_print := MyLine cat "\n";
+    boo,ct := GenusCheck(MyLine);
+    if boo eq true then
+        to_print := "[" cat ct cat "," cat MyLine cat "]" cat "\n";
         fprintf OutputFileName, to_print;
     end if;
 end for;
