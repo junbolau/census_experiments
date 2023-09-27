@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "isomclass_" cat InputFileName;
+OutputFileName := "/sorted/isomclass_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
