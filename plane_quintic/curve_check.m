@@ -34,7 +34,7 @@
 
 OutputFileName := "with_genus_" cat InputFileName;
 
-LinesOfInputFile := Split(Read(RealInputFileName), "\n");
+LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 R<x0,x1,x2> := PolynomialRing(GF(2),3);
 X := ProjectiveSpace(R);
