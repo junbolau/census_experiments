@@ -1,0 +1,7 @@
+TODO:
+- Coding
+= Generate data files with point counts up to F_2^6
+= Rerun computation with improved isom_check_new
+
+COMMENTS:
+- batch_21 with 752 equations takes about 9 minutes with new isom_check
