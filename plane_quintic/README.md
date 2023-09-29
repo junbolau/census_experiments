@@ -8,5 +8,5 @@ The file is broken into 3 steps: data generation, curve check and isomorphism cl
 
 ## Comments:
 - breaking down the list of equations into 25 files allow parallelising the curve and isomorphism class checks. The commands are contained within the Magma files.
-- Takes less than 2 hours. Optimisations possible.
+- Takes less than 2 hours when broken down into 25 parallel Magma jobs. Optimisations possible.
 - Can break down into batches in a smarter way depending on bin sizes.
