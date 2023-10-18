@@ -16,3 +16,11 @@
 63  10:56   wc -l RUN
 64  11:01   history > HISTORY
 
+
+
+
+load sage in lmfdb folder
+
+
+load lmfdb? there should be db and run the bottom command (or something similar)
+db.av_fq_isog.count({'p':2, 'g':6, 'has_jacobian' : {'$gte': 0}, 'has_principal_polarization': {'$gte':0}})
