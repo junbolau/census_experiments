@@ -1,3 +1,12 @@
+/*
+
+find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../../curves_by_ramification.m &\n"' > RUN
+emacs -nw RUN
+#!/bin/sh
+
+
+*/
+
 OutputFileName := InputFileName;
 
 r_1 := StringToInteger(InputFileName[1]);
@@ -5,15 +14,15 @@ rmr1 := StringToInteger(InputFileName[3]);
 
 A<x,y> := AffineSpace(FiniteField(2),2);
 dir := GetCurrentDirectory();
-if dir[#dir] is 1 then
+if dir[#dir] eq "1" then
     f := y^2 + y + x^3 + x + 1;
-elif dir[#dir] is 2 then
+elif dir[#dir] eq "2" then
     f := y^2 + x*y + y + x^3 + 1;
-elif dir[#dir] is 3 then
+elif dir[#dir] eq "3" then
     f := y^2 + y + x^3;
-elif dir[#dir] is 4 then
+elif dir[#dir] eq "4" then
     f := y^2 + x*y + x^3 + 1;
-elif dir[#dir] is 5 then
+elif dir[#dir] eq "5" then
     f := y^2 + y + x^3 + x;
 end if;
 
