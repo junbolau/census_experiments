@@ -2,8 +2,8 @@
 
 find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../../curves_by_ramification.m &\n"' > RUN
 emacs -nw RUN
-#!/bin/sh
-
+add #!/bin/sh
+./RUN
 
 */
 
@@ -90,9 +90,11 @@ for d in RamDivisor(r_1,rmr1) do
             U3:= sub<R|U1 cat U2>;
             A := AbelianExtension(d,U3);
             F1:= FunctionField(A);
+            Y := Scheme(F1);
             if Genus(F1) eq 6 then
                 cpc := ([NumberOfPlacesOfDegreeOneECF(F1,n) : n in [1..6]]);
                 fprintf OutputFileName, "%o" cat "\n", F1;
+                fprintf OutputFileName, "%o" cat "\n", Y;
                 fprintf OutputFileName, "%o" cat "\n", cpc;
             end if;
         end if;

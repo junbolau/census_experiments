@@ -2,7 +2,7 @@
 
   Use this script to generate curves data with correct genus:
 
-    ls ./data/ | parallel -j25 "magma -b InputFileName:={} curve_check.m"
+    ls ./data/ | parallel -j25 "magma -b InputFileName:={} curve_check.m &"
 
   (current) If parallel does not work, run this script within /data/ directory :
   
@@ -68,7 +68,7 @@ GenusCheck := function(_fsupp)
 end function;
     
 
-for MyLine in LinesOfInputFile do
+for MyLine in LinesOfInputFile do   
     boo,ct := GenusCheck(MyLine);
     if boo eq true then
         to_print := "[" cat ct cat "," cat MyLine cat "]" cat "\n";
