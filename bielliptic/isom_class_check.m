@@ -94,7 +94,7 @@ while i le L do
     end for;
     for eqn in supptmp do
         G_ord := #AutomorphismGroup(Curve(A,eqn));
-        fprintf OutputFileName, "%o" cat "," cat "%o" cat"\n", eqn, G_ord;
+        fprintf "[" cat OutputFileName, "%o" cat "," cat "%o" cat "]" cat"\n", eqn, G_ord;
     end for;
     i := j + 1;
 end while;
