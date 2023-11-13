@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "/isomclass_" cat InputFileName;
+OutputFileName := "isomclass_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -54,7 +54,7 @@ A<x,y>:= AffineSpace(GF(2),2);
 
 // Quick construction of function field with IsIsomorphic functionality
 function FFConstruction(fsupp)
-    return AlgorithmicFunctionField(FunctionField(Curve(fsupp)));
+    return AlgorithmicFunctionField(FunctionField(Curve(A,fsupp)));
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
@@ -73,12 +73,11 @@ end function;
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
 lst := eval(LinesOfInputFile[1]);
-final := [lst[2]];
 i := 1;
 while i le L do
     lst := eval(LinesOfInputFile[i]);
     ct := lst[1];
-    supp := lst[2];
+    supp := lst[2][1];
     F0 := FFConstruction(supp);
 
     tmp := [F0];
@@ -86,7 +85,7 @@ while i le L do
     j := CountIndices(LinesOfInputFile,ct,i);
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
-        supp2 := lst2[2];
+        supp2 := lst2[2][1];
         F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
