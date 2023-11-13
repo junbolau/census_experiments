@@ -93,7 +93,8 @@ while i le L do
         end if;
     end for;
     for eqn in supptmp do
-        fprintf OutputFileName, "%o" cat "\n", eqn;
+        G_ord := #AutomorphismGroup(Curve(A,eqn));
+        fprintf OutputFileName, "%o" cat "," cat "%o" cat"\n", eqn, G_ord;
     end for;
     i := j + 1;
 end while;
