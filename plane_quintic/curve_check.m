@@ -32,7 +32,7 @@
 
 */
 
-OutputFileName := "with_genus_" cat InputFileName;
+OutputFileName := "genus_" cat InputFileName;
 
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
@@ -52,12 +52,7 @@ GenusCheck := function(_fsupp)
         F0 := FunctionField(C);
         F := AlgorithmicFunctionField(F0);
         if Genus(F) eq 6 then
-            ct := "[";
-            for n in [1..6] do
-                ct :=  ct cat IntegerToString(NumberOfPlacesOfDegreeOneECF(F,n)) cat ",";
-            end for;
-            Prune(~ct);
-            ct := ct cat "]"; 
+            ct := [IntegerToString(NumberOfPlacesOfDegreeOneECF(F,n)) : n in [1..6]];
             return true, ct;
         else
             return false, "";

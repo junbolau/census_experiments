@@ -86,10 +86,13 @@ while i le L do
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2][1];
-        F02 := FFConstruction(supp2);
-        if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
-            Append(~tmp,F02);
-            Append(~supptmp,supp2);
+        C_ := Scheme(A,supp2);
+        if Dimension(C_) eq 1 and IsIrreducible(C_) eq true and IsReduced(C_) eq true then
+            F02 := FFConstruction(supp2);
+            if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
+                Append(~tmp,F02);
+                Append(~supptmp,supp2);
+            end if;
         end if;
     end for;
     for eqn in supptmp do

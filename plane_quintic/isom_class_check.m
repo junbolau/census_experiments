@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "/sorted/isomclass_" cat InputFileName;
+OutputFileName := "/data/isomclass_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -81,8 +81,6 @@ function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
 end function;
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
-lst := eval(LinesOfInputFile[1]);
-final := [lst[2]];
 i := 1;
 while i le L do
     lst := eval(LinesOfInputFile[i]);
