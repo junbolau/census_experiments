@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "/data/isom_" cat InputFileName;
+OutputFileName := "/data/sorted/isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -97,11 +97,11 @@ while i le L do
         F02,autsize := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            Append(~supptmp,[supp2,autsize]);
+            Append(~supptmp,[supp2,[autsize]]);
         end if;
     end for;
     for eqn in supptmp do
-        fprintf OutputFileName, "%o" cat "\n", eqn;
+        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", eqn[1],eqn[2];
     end for;
     i := j + 1;
 end while;
