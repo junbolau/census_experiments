@@ -66,8 +66,7 @@ end function;
 for MyLine in LinesOfInputFile do   
     boo,ct := GenusCheck(MyLine);
     if boo eq true then
-        to_print := "[" cat ct cat "," cat MyLine cat "]" cat "\n";
-        fprintf OutputFileName, to_print;
+        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", ct, MyLine;
     end if;
 end for;
 
