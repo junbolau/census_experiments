@@ -97,7 +97,7 @@ while i le L do
         F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            Append(~supptmp,[supp2]);
+            Append(~supptmp,supp2);
         end if;
     end for;
     for eqn in supptmp do
