@@ -27,15 +27,17 @@ function FFConstruction(fsupp)
         end for;
     Y_ := Scheme(X,pol);
     C_ := Curve(Y_);
-    return pol,#AutomorphismGroup(C_);
+    return [pol,#AutomorphismGroup(C_)];
 end function;
+
+lst := eval(LinesOfInputFile[1]);
 
 i := 1;
 
 while i le L do
     lst := eval(LinesOfInputFile[i]);
-    output_pol,aut_size := FFConstruction(lst);
-    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", output_pol,aut_size;
+    output := FFConstruction(lst);
+    fprintf OutputFileName, "%o" cat "\n", output;
     i +:= 1;
 end while;
 

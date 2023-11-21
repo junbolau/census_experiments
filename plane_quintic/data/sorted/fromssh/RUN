@@ -1,0 +1,26 @@
+#!/bin/sh
+magma -b InputFileName:=isomclass_with_genus_unfiltered_23.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_12.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_8.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_11.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_9.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_3.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_16.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_1.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_10.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_20.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_4.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_13.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_6.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_5.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_2.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_14.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_22.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_7.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_0.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_15.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_18.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_19.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_21.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_24.txt add_aut.m &
+magma -b InputFileName:=isomclass_with_genus_unfiltered_17.txt add_aut.m &
