@@ -59,11 +59,11 @@ function FFConstruction(fsupp)
     pol := R!0;
     for k in fsupp do
         pol +:= monos5[k+1];
-        end for;
+    end for;
     Y_ := Scheme(X,pol);
     C_ := Curve(Y_);
     F_ := FunctionField(C_);
-    return AlgorithmicFunctionField(F_),#AutomorphismGroup(C_);
+    return AlgorithmicFunctionField(F_);
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
@@ -86,10 +86,10 @@ while i le L do
     lst := eval(LinesOfInputFile[i]);
     ct := lst[1];
     supp := lst[2];
-    F0,autsize1 := FFConstruction(supp);
+    F0 := FFConstruction(supp);
 
     tmp := [F0];
-    supptmp := [supp,[autsize1]];
+    supptmp := [supp];
     j := CountIndices(LinesOfInputFile,ct,i);
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
@@ -97,11 +97,16 @@ while i le L do
         F02,autsize := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            Append(~supptmp,[supp2,[autsize]]);
+            Append(~supptmp,[supp2]);
         end if;
     end for;
     for eqn in supptmp do
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", eqn[1],eqn[2];
+        pol := R!0;
+        for k in eqn do
+            pol +:= monos5[k+1];
+        end for;
+        autsize := #AutomorphismGroup(Curve(Scheme(X,pol)));
+        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", pol,autsize;
     end for;
     i := j + 1;
 end while;
