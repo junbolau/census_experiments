@@ -94,7 +94,7 @@ while i le L do
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
-        F02,autsize := FFConstruction(supp2);
+        F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
             Append(~supptmp,[supp2]);
