@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "/data/sorted/isom_" cat InputFileName;
+OutputFileName := "./data/sorted/isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -86,10 +86,10 @@ while i le L do
     lst := eval(LinesOfInputFile[i]);
     ct := lst[1];
     supp := lst[2];
-    F0 := FFConstruction(supp);
+    F0,autsize1 := FFConstruction(supp);
 
     tmp := [F0];
-    supptmp := [supp];
+    supptmp := [supp,[autsize1]];
     j := CountIndices(LinesOfInputFile,ct,i);
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
