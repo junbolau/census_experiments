@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "/data/isomclass_" cat InputFileName;
+OutputFileName := "/data/isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -63,13 +63,13 @@ function FFConstruction(fsupp)
     Y_ := Scheme(X,pol);
     C_ := Curve(Y_);
     F_ := FunctionField(C_);
-    return AlgorithmicFunctionField(F_);
+    return AlgorithmicFunctionField(F_),#AutomorphismGroup(C_);
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
 function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
-    L := #TxtFile;
-    for k in [StartingIndex..L] do
+    L1 := #TxtFile;
+    for k in [StartingIndex..L1] do
         tmp := eval(TxtFile[k]);
         if tmp[1] eq InitialPointCounts then
             continue;
@@ -77,7 +77,7 @@ function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
             return k-1;
         end if;
     end for;
-    return L;
+    return L1;
 end function;
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
@@ -94,10 +94,10 @@ while i le L do
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
-        F02 := FFConstruction(supp2);
+        F02,autsize := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            Append(~supptmp,supp2);
+            Append(~supptmp,[supp2,autsize]);
         end if;
     end for;
     for eqn in supptmp do
