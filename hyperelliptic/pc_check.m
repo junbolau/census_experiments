@@ -1,4 +1,4 @@
-OutputFileName := "aut_" cat InputFileName;
+OutputFileName := "pc_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 function LineCount(F)
@@ -18,17 +18,14 @@ L := LineCount(InputFileName);
 
 A<x,y>:= AffineSpace(GF(2),2);
 
-function FFConstruction(fsupp)
-    C_ := Curve(A,fsupp);
-    return fsupp,#AutomorphismGroup(C_);
-end function;
-
 i := 1;
 
 while i le L do
     lst := eval(LinesOfInputFile[i]);
-    output_pol,aut_size := FFConstruction(lst);
-    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", output_pol,aut_size;
+    C_ := Curve(A,lst);
+    F_ := AlgorithmicFunctionField(FunctionField(C_));
+    ct := [NumberOfPlacesOfDegreeOneECF(F_,n) : n in [1..6]];
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", ct,lst, #AutomorphismGroup(C_);
     i +:= 1;
 end while;
 

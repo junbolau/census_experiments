@@ -1,2 +1,2 @@
 #!/bin/sh
-magma -b InputFileName:=hyperelliptic.txt add_aut.m &
+magma -b InputFileName:=hyperelliptic.txt pc_check.m &

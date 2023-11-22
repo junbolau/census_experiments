@@ -72,7 +72,6 @@ function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
 end function;
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
-lst := eval(LinesOfInputFile[1]);
 i := 1;
 while i le L do
     lst := eval(LinesOfInputFile[i]);

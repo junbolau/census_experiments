@@ -31,7 +31,7 @@
 
 */
 
-OutputFileName := "./data/sorted/isom_" cat InputFileName;
+OutputFileName := "isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
@@ -60,10 +60,7 @@ function FFConstruction(fsupp)
     for k in fsupp do
         pol +:= monos5[k+1];
     end for;
-    Y_ := Scheme(X,pol);
-    C_ := Curve(Y_);
-    F_ := FunctionField(C_);
-    return AlgorithmicFunctionField(F_);
+    return AlgorithmicFunctionField(FunctionField(Curve(Scheme(X,pol))));
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
