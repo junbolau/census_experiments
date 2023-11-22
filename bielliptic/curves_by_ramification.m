@@ -202,7 +202,7 @@ for d in RamDivisor(r_1,rmr1) do
            if Genus(F1) eq 6 then
                cpc := ([NumberOfPlacesOfDegreeOneECF(F1,n) : n in [1..6]]);
                pol:=DefiningPolynomial(RationalExtensionRepresentation(F1));
-               fprintf OutputFileName, "[" cat "%o" cat "%o" cat "]" cat "\n", pol,cpc;
+               fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", pol,cpc;
            end if;
         end if;
     end for;
