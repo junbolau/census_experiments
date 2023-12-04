@@ -12,7 +12,7 @@
   ./RUN
   
   Comments on the current method:
-  - find ./ -type f | grep txt | grep ^./with  | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN
+  - find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN
   - writes a bash script file to run magma file in parallel. need to select files with certain beginnings, #!/bin/sh on top on RUN
   - use several data folders to manage batches (BU server limit)
   - approx 30-35 .txt files in each data folder
@@ -35,6 +35,7 @@ OutputFileName := "isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 // Count number of lines in text file
+/*
 function LineCount(F)
     FP := Open(F, "r");
     count := 0;
@@ -47,29 +48,26 @@ function LineCount(F)
     end while;
     return count;
 end function;
+*/
 
-L := LineCount(InputFileName);
+L := #LinesOfInputFile;
 
 R<x0,x1,x2>:= PolynomialRing(GF(2),3);
 X := ProjectiveSpace(R);
-monos5 := [x0^5, x0^4*x1, x0^4*x2, x0^3*x1^2, x0^3*x1*x2, x0^3*x2^2, x0^2*x1^3, x0^2*x1^2*x2, x0^2*x1*x2^2, x0^2*x2^3, x0*x1^4, x0*x1^3*x2, x0*x1^2*x2^2, x0*x1*x2^3, x0*x2^4, x1^5, x1^4*x2, x1^3*x2^2,x1^2*x2^3, x1*x2^4, x2^5];
 
 // Quick construction of function field with IsIsomorphic functionality
 function FFConstruction(fsupp)
-    pol := R!0;
-    for k in fsupp do
-        pol +:= monos5[k+1];
-    end for;
     return AlgorithmicFunctionField(FunctionField(Curve(Scheme(X,pol))));
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
 function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
-    L1 := #TxtFile;
-    for k in [StartingIndex..L1] do
+    for k in [StartingIndex..L] do
         tmp := eval(TxtFile[k]);
         if tmp[1] eq InitialPointCounts then
             continue;
+        elif StartingIndex eq L then
+            return StartingIndex;
         else
             return k-1;
         end if;
@@ -86,7 +84,6 @@ while i le L do
     F0 := FFConstruction(supp);
 
     tmp := [F0];
-    supptmp := [supp];
     j := CountIndices(LinesOfInputFile,ct,i);
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
@@ -94,16 +91,9 @@ while i le L do
         F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            Append(~supptmp,supp2);
+            autsize := #AutomorphismGroup(Curve(Scheme(X,supp2)));
+            fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2,autsize;
         end if;
-    end for;
-    for eqn in supptmp do
-        pol := R!0;
-        for k in eqn do
-            pol +:= monos5[k+1];
-        end for;
-        autsize := #AutomorphismGroup(Curve(Scheme(X,pol)));
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", pol,autsize;
     end for;
     i := j + 1;
 end while;
