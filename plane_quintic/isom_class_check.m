@@ -83,8 +83,12 @@ while i le L do
     supp := lst[2];
     F0 := FFConstruction(supp);
 
+    autsize := #AutomorphismGroup(Curve(Scheme(X,supp)));
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp,autsize;
+
     tmp := [F0];
     j := CountIndices(LinesOfInputFile,ct,i);
+    
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
