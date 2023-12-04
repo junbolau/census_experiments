@@ -72,7 +72,6 @@ function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
             return k-1;
         end if;
     end for;
-    return L1;
 end function;
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
