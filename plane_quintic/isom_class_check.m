@@ -57,7 +57,7 @@ X := ProjectiveSpace(R);
 
 // Quick construction of function field with IsIsomorphic functionality
 function FFConstruction(fsupp)
-    return AlgorithmicFunctionField(FunctionField(Curve(Scheme(X,pol))));
+    return AlgorithmicFunctionField(FunctionField(Curve(Scheme(X,fsupp))));
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
