@@ -55,9 +55,9 @@ function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
     end if;
     for k in [StartingIndex..L] do
         tmp := eval(TxtFile[k]);
-        if tmp[1] eq InitialPointCounts then
+        if tmp[1] eq InitialPointCounts and k le L-1 then
             continue;
-        elif k eq L then
+        elif tmp[1] eq InitialPointCounts and k eq L then
             return k;
         else
             return k-1;
