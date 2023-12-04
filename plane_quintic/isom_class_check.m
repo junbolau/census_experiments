@@ -62,12 +62,13 @@ end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
 function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
+    if StartingIndex eq L then
+        return L;
+    end if;
     for k in [StartingIndex..L] do
         tmp := eval(TxtFile[k]);
         if tmp[1] eq InitialPointCounts then
             continue;
-        elif StartingIndex eq L then
-            return StartingIndex;
         else
             return k-1;
         end if;
