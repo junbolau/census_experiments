@@ -34,21 +34,6 @@
 OutputFileName := "isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
-// Count number of lines in text file
-/*
-function LineCount(F)
-    FP := Open(F, "r");
-    count := 0;
-    while true do
-        line := Gets(FP);
-        if IsEof(line) then
-            break;
-        end if;
-        count +:= 1;
-    end while;
-    return count;
-end function;
-*/
 
 L := #LinesOfInputFile;
 
@@ -91,7 +76,7 @@ while i le L do
     tmp := [F0];
     j := CountIndices(LinesOfInputFile,ct,i);
     
-    for ind in [i..j] do
+    for ind in [i+1..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
         F02 := FFConstruction(supp2);
