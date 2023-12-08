@@ -12,7 +12,7 @@
   ./RUN
   
   Comments on the current method:
-  - find ./ -type f | grep txt | grep^ $FILE_NAME_BEGINNING | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../curve_check.m &\n"' > RUN
+  - find ./ -type f | grep txt | grep^ $FILE_NAME_BEGINNING | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../curve_check.m &\n"' > RUN_genus
   - writes a bash script file to run magma file in parallel. need to select files with certain beginnings, #!/bin/sh on top on RUN
   - use several data folders to manage batches (BU server limit)
   - approx 30-35 .txt files in each data folder
@@ -59,7 +59,7 @@ end function;
 for MyLine in LinesOfInputFile do   
     boo,ct := GenusCheck(MyLine);
     if boo eq true then
-        fprintf OutputFileName, "[[" cat "%o" cat "],[" cat "%o" cat "]]" cat "\n", ct, MyLine;
+        fprintf OutputFileName, "[" cat "%o" cat ",[" cat "%o" cat "]]" cat "\n", ct, MyLine;
     end if;
 end for;
 

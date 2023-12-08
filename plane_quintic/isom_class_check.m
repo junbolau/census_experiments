@@ -75,7 +75,7 @@ while i le L do
     fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp,autsize;
 
     tmp := [F0];
-    j := CountIndices(LinesOfInputFile,ct,i);
+    j := FindIndex(LinesOfInputFile,ct,i);
     
     for ind in [i..j] do
         lst2 := eval(LinesOfInputFile[ind]);
