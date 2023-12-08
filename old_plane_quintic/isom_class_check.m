@@ -12,12 +12,12 @@
   ./RUN
   
   Comments on the current method:
-  - find ./ -type f | grep txt | grep genus  | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN_isom
+  - find ./ -type f | grep txt | perl -ne 'chomp;s/\.\///;print "magma -b InputFileName:=$_ ../isom_class_check.m &\n"' > RUN
   - writes a bash script file to run magma file in parallel. need to select files with certain beginnings, #!/bin/sh on top on RUN
   - use several data folders to manage batches (BU server limit)
   - approx 30-35 .txt files in each data folder
 
-  This will take the data files in `./data/sorted_data/`, and for each curve in each file,
+  This will take the data files in `./data/`, and for each curve in each file,
   will generate a new file (appended with `isomclass_`) in the same directory.
 
 */
@@ -30,7 +30,6 @@
  OutputFileName := "-/data/with_genus_" cat InputFileName;
 
 */
-
 
 OutputFileName := "isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
@@ -47,9 +46,9 @@ function FFConstruction(fsupp)
 end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
-function FindIndex(TxtFile, InitialPointCounts,StartingIndex)
+function CountIndices(TxtFile, InitialPointCounts,StartingIndex)
     if StartingIndex eq L then
-        return StartingIndex;
+        return L;
     end if;
     for k in [StartingIndex..L] do
         tmp := eval(TxtFile[k]);
@@ -77,7 +76,7 @@ while i le L do
     tmp := [F0];
     j := CountIndices(LinesOfInputFile,ct,i);
     
-    for ind in [i..j] do
+    for ind in [i+1..j] do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
         F02 := FFConstruction(supp2);

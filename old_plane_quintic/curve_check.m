@@ -33,6 +33,7 @@
 */
 
 OutputFileName := "genus_" cat InputFileName;
+
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
 R<x0,x1,x2> := PolynomialRing(GF(2),3);
@@ -43,7 +44,8 @@ GenusCheck := function(_fsupp)
     Y := Scheme(X,pol);
     if Dimension(Y) eq 1 and IsIrreducible(Y) eq true and IsReduced(Y) eq true then
         C := Curve(Y);
-        F := AlgorithmicFunctionField(FunctionField(C));
+        F0 := FunctionField(C);
+        F := AlgorithmicFunctionField(F0);
         if Genus(F) eq 6 then
             ct := [IntegerToString(NumberOfPlacesOfDegreeOneECF(F,n)) : n in [1..6]];
             return true, ct;
@@ -59,7 +61,7 @@ end function;
 for MyLine in LinesOfInputFile do   
     boo,ct := GenusCheck(MyLine);
     if boo eq true then
-        fprintf OutputFileName, "[[" cat "%o" cat "],[" cat "%o" cat "]]" cat "\n", ct, MyLine;
+        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", ct, MyLine;
     end if;
 end for;
 
