@@ -1,6 +1,0 @@
-#!/bin/sh
-magma -b InputFileName:=t1.txt ../../isom_class_check.m &
-magma -b InputFileName:=t4.txt ../../isom_class_check.m &
-magma -b InputFileName:=t2.txt ../../isom_class_check.m &
-magma -b InputFileName:=t3.txt ../../isom_class_check.m &
-magma -b InputFileName:=t5.txt ../../isom_class_check.m &

@@ -1,7 +1,0 @@
-Comments:
-
-TODO:
-[x] Magma cyclic covers, ramification analysis
-[x] [recently implemented] Write down commands for accessing LMFDB data (e.g. load point counts WITH p-rank)
-[x] [minor typo between data types] data after curves_by_ramification.m might be incorrect. For example, they fail the resultant 2 criterion. not sure what is wrong yet.
-- run an example with known r and r1 and point counts
