@@ -72,7 +72,7 @@ while i le L do
     F0 := FFConstruction(supp);
 
     autsize := #AutomorphismGroup(Curve(Scheme(X,supp)));
-    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp,autsize;
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize;
 
     tmp := [F0];
     j := FindIndex(LinesOfInputFile,ct,i);
@@ -84,7 +84,7 @@ while i le L do
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
             autsize := #AutomorphismGroup(Curve(Scheme(X,supp2)));
-            fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2,autsize;
+            fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
         end if;
     end for;
     i := j + 1;
