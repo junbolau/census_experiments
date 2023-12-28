@@ -80,7 +80,22 @@ function count_automs(F)
     try
         return #AutomorphismGroup(F);
     catch e
-        return #Automorphisms(F);
+        /* An error can occur when Automorphisms(F) returns a list with repetitions. */
+        L := Automorphisms(F);
+        L1 := [* *];
+        for i in L do
+            match := false;
+            for j in L1 do
+                if Equality(i, j) then
+                    match := true;
+                    break;
+                end if;
+            end for;
+            if not match then
+                Append(~L1, i);
+            end if;
+        end for;
+        return #L1;
     end try;
 end function;
 
@@ -94,8 +109,7 @@ while i le L do
 
     try
         autsize := count_automs(F0);
-        autcheck := compare_automs(F0);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize,autcheck;
+        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize;
     catch e
         autsize := count_automs(F0);
         fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp[1],autsize;
@@ -111,8 +125,7 @@ while i le L do
             Append(~tmp,F02);
             try
                 autsize := count_automs(F02);
-                autcheck := compare_automs(F02);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize,autcheck;
+                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
             catch e
                 autsize := count_automs(F0);
                 fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp2[1],autsize;
