@@ -125,7 +125,7 @@ while i le L do
             Append(~tmp,F02);
             try
                 autsize := count_automs(F02);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
+                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
             catch e
                 autsize := count_automs(F0);
                 fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp2[1],autsize;
