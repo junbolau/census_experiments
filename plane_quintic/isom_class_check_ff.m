@@ -63,19 +63,6 @@ function FindIndex(TxtFile, InitialPointCounts,StartingIndex)
     end for;
 end function;
 
-
-function compare_automs(F)
-    try
-        if #AutomorphismGroup(F) eq #Automorphisms(F) then
-            return "True";
-        else
-            return "False";
-        end if;
-    catch e
-        return "error";
-    end try;
-end function;
-
 function count_automs(F)
     try
         return #AutomorphismGroup(F);
@@ -107,14 +94,8 @@ while i le L do
     supp := lst[2];
     F0 := FFConstruction(supp);
 
-    try
-        autsize := count_automs(F0);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize;
-    catch e
-        autsize := count_automs(F0);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp[1],autsize;
-    end try;
-    
+    autsize := count_automs(F0);
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize;    
     tmp := [F0];
     j := FindIndex(LinesOfInputFile,ct,i);
     for ind in [i..j] do
@@ -123,13 +104,8 @@ while i le L do
         F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
             Append(~tmp,F02);
-            try
-                autsize := count_automs(F02);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
-            catch e
-                autsize := count_automs(F0);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp2[1],autsize;
-            end try;
+            autsize := count_automs(F02);
+            fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
         end if;
     end for;
     i := j + 1;
