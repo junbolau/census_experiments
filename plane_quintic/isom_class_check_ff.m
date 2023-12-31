@@ -102,7 +102,7 @@ while i le L do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
         F02 := FFConstruction(supp2);
-        if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
+        if forall(u){m : m in tmp | #Isomorphisms(F02,m) eq 0 } eq true then
             Append(~tmp,F02);
             autsize := count_automs(F02);
             fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
