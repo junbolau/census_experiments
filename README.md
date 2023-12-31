@@ -1,7 +1,7 @@
 # genus_6_census
 
 
-## Obtaining LMFDB data
+## Obtaining LMFDB data (deprecated: this has been implemented recently)
 
 Run ```sage``` in your local ```/lmfdb/``` folder
 
