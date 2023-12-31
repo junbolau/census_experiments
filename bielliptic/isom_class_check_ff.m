@@ -60,26 +60,28 @@ function FindIndex(TxtFile, InitialPointCounts,StartingIndex)
     end for;
 end function;
 
-function compare_automs(F)
-    try
-        if #AutomorphismGroup(F) eq #Automorphisms(F) then
-            return "True";
-        else
-            return "False";
-        end if;
-    catch e
-        return "error";
-    end try;
-end function;
-
 function count_automs(F)
     try
         return #AutomorphismGroup(F);
     catch e
-        return #Automorphisms(F);
+        /* An error can occur when Automorphisms(F) returns a list with repetitions. */
+        L := Automorphisms(F);
+        L1 := [* *];
+        for i in L do
+            match := false;
+            for j in L1 do
+                if Equality(i, j) then
+                    match := true;
+                    break;
+                end if;
+            end for;
+            if not match then
+                Append(~L1, i);
+            end if;
+        end for;
+        return #L1;
     end try;
 end function;
-
 
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
 i := 1;
@@ -88,14 +90,8 @@ while i le L do
     ct := lst[1];
     supp := lst[2];
     F0 := FFConstruction(supp);
-    try
-        autsize := count_automs(F0);
-        autcheck := compare_automs(F0);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize,autcheck;
-    catch e
-        autsize := count_automs(F0);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp[1],autsize;
-    end try;
+    autsize := count_automs(F0);
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp[1],autsize;
 
     tmp := [F0];
     j := FindIndex(LinesOfInputFile,ct,i);
@@ -103,16 +99,10 @@ while i le L do
         lst2 := eval(LinesOfInputFile[ind]);
         supp2 := lst2[2];
         F02 := FFConstruction(supp2);
-        if forall(u){m : m in tmp | IsIsomorphic(F02,m) eq false } eq true then
+        if forall(u){m : m in tmp | #Isomorphisms(F02,m) eq 0 } eq true then
             Append(~tmp,F02);
-            try
-                autsize := count_automs(F02);
-                autcheck := compare_automs(F02);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize,autcheck;
-            catch e
-                autsize := count_automs(F0);
-                fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "," cat "error" cat "]" cat "\n", supp2[1],autsize;
-            end try;
+            autsize := count_automs(F02);
+            fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
         end if;
     end for;
     i := j + 1;
