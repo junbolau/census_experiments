@@ -3,8 +3,8 @@ Use this command to run this script in parallel:
     ls ./data_unfiltered_updated/ | parallel -j50 "magma -b Input:={} isom_class_check.m&"
 */
 
-OutputFileName := "./sorted_data/flat48/isom_class" cat Input;
-InputFileName := "./data_unfiltered_updated/flat48/" cat Input;
+OutputFileName := "./sorted_data/flat9/isom_class" cat Input;
+InputFileName := "./data_unfiltered_updated/flat9/" cat Input;
 
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
@@ -126,7 +126,7 @@ while i le L do
             aut_ord := #AutomorphismGroup(FFConstruction(eqn));
             fprintf OutputFileName, "%o" cat "," cat "%o" cat "\n", eqn, aut_ord;
         catch e
-            fprintf "./sorted_data/flat48/problematic_automorphisms.txt", "%o" cat "\n", eqn;
+            fprintf "./sorted_data/flat9/problematic_automorphisms.txt", "%o" cat "\n", eqn;
             aut_ord := CountAutoms(FFConstruction(eqn));
             fprintf OutputFileName, "%o" cat "," cat "%o" cat "\n", eqn, aut_ord;
             //fprintf OutputFileName, "%o" cat "," cat "%o" cat ",'error'" cat "\n", eqn, 1;
@@ -135,5 +135,6 @@ while i le L do
     i := j + 1;
 end while;
 
+print "Done flat9";
 
 quit;
