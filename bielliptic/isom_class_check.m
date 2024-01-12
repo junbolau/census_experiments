@@ -34,7 +34,7 @@
 OutputFileName := "isom_" cat InputFileName;
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 
-L := #LinesOfInputFile;
+L_num := #LinesOfInputFile;
 
 A<x,y>:= AffineSpace(GF(2),2);
 
@@ -45,14 +45,14 @@ end function;
 
 // Each line is a support ordered by point count, so we need to get starting and ending indices
 function FindIndex(TxtFile, InitialPointCounts,StartingIndex)
-    if StartingIndex eq L then
+    if StartingIndex eq L_num then
         return StartingIndex;
     end if;
-    for k in [StartingIndex..L] do
+    for k in [StartingIndex..L_num] do
         tmp := eval(TxtFile[k]);
-        if tmp[1] eq InitialPointCounts and k le L-1 then
+        if tmp[1] eq InitialPointCounts and k le L_num-1 then
             continue;
-        elif tmp[1] eq InitialPointCounts and k eq L then
+        elif tmp[1] eq InitialPointCounts and k eq L_num then
             return k;
         else
             return k-1;
@@ -60,9 +60,32 @@ function FindIndex(TxtFile, InitialPointCounts,StartingIndex)
     end for;
 end function;
 
+function count_automs(F)
+    try
+        return #AutomorphismGroup(F);
+    catch e
+        /* An error can occur when Automorphisms(F) returns a list with repetitions. */
+        L := Automorphisms(F);
+        L1 := [* *];
+        for i in L do
+            match := false;
+            for j in L1 do
+                if Equality(i, j) then
+                    match := true;
+                    break;
+                end if;
+            end for;
+            if not match then
+                Append(~L1, i);
+            end if;
+        end for;
+        return #L1;
+    end try;
+end function;
+
 // Main loop: check for pairwise isomorphism by varying over elements of the same point counts
 i := 1;
-while i le L do
+while i le L_num do
     lst := eval(LinesOfInputFile[i]);
     ct := lst[1];
     supp := lst[2];
@@ -77,7 +100,7 @@ while i le L do
         F02 := FFConstruction(supp2);
         if forall(u){m : m in tmp | #Isomorphisms(F02,m) eq 0 } eq true then
             Append(~tmp,F02);
-            autsize := #AutomorphismGroup(Curve(A,supp2));
+            autsize := count_automs(F02);
             fprintf OutputFileName, "[" cat "%o" cat "," cat "%o" cat "]" cat "\n", supp2[1],autsize;
         end if;
     end for;
