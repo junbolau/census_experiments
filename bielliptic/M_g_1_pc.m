@@ -1,4 +1,4 @@
-InputFileName := "elliptic.txt"; 
+InputFileName := "bielliptic.txt"; 
 LinesOfInputFile := Split(Read(InputFileName), "\n");
 //OutputFileName:= "F2_pc_" cat InputFileName;
 
