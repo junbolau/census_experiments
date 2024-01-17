@@ -65,13 +65,8 @@ for i in [1..L] do
     F := FFConstruction(supp);
     cpc := ([NumberOfPlacesOfDegreeOneECF(F,n) : n in [1..6]]);
 
-    try
-        G := IdentifyGroup(AutomorphismGroup(F));
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", cpc, G, supp;
-    catch e
-        G := count_automs(F);
-        fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", cpc, G, supp;
-    end try;
+    G := AutomorphismGroupCorrected(F);
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", cpc, G, supp;
 end for;
 
 print "Done!";
