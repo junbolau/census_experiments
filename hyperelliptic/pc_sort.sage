@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-f = open("pc_hyperelliptic.txt",'r').readlines()
+f = open("data/pc_unfiltered.txt",'r').readlines()
 R.<x,y> = PolynomialRing(GF(2))
 d = defaultdict(list)
 for line in f:
@@ -9,7 +9,7 @@ for line in f:
     
 lst = list(d.keys())
 for j in range(25):
-    f = open('./data/sorted_' + str(j) + '.txt','w+')
+    f = open('data/sorted_' + str(j) + '.txt','w+')
     for key in lst[134*j:134*j + 134]:
         for eqn in d[key]:
             tmp = [list(key),list(eqn)]

@@ -59,7 +59,7 @@ while i le L do
     ct := [NumberOfPlacesOfDegreeOneECF(F0,n) : n in [1..6]];
     G := IdentifyGroup(AutomorphismGroupCorrected(F0));
     
-    fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", ct, G, supp;
+    fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", ct, G, supp[1];
 
     tmp := [F0];
     j := FindIndex(LinesOfInputFile,ct,i);
@@ -73,7 +73,7 @@ while i le L do
             Append(~tmp,F02);
             ct2 := [NumberOfPlacesOfDegreeOneECF(F0,n) : n in [1..6]];
             G2 := IdentifyGroup(AutomorphismGroupCorrected(F02));
-            fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", ct2, G2, supp2;
+            fprintf OutputFileName, "[" cat "%o" cat "," cat "'" cat "%o" cat "'" cat "," cat "%o" cat "]" cat "\n", ct2, G2, supp2[1];
         end if;
     end for;
     i := j + 1;
