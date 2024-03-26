@@ -271,30 +271,40 @@ RamDivisor := function(r);
     end if;
 end function;
 
-for ram in [1..6] do
-    ram_divs := RamDivisor(ram);
-    for d in ram_divs do
-        R,mR := RayClassGroup(d);
-        gens := SetToIndexedSet(Generators(R));
-        U1 := sub<R| [2*g : g in gens]>;
 
-        V := VectorSpace(GF(2), #gens);
-        for v in V do
-            if v eq V!0 then
-                continue;
-            else
-                m := Depth(v); //first nonzero entry of v
-                U2:= sub<R|[gens[i1] - (Integers()! v[i1])*gens[m] : i1 in [1..#gens]]>;
-                U3:= sub<R|[U1, U2]>;
-                Ab := AbelianExtension(d,U3);
-                F1:= AlgorithmicFunctionField(FunctionField(Ab));
-                if Genus(F1) eq 7 then
-                    cpc := ([NumberOfPlacesOfDegreeOneECF(F1,n) : n in [1..7]]);
-                    pol:= DefiningPolynomial(RationalExtensionRepresentation(F1));
-                    fprintf OutputFileName, "[" cat "%o" cat ",[" cat "%o" cat "]" cat ",[" cat "%o" cat "]]" cat "\n", cpc,pol, f;
-                end if;
+
+
+if i eq 4 then
+    ini_ind := 157;
+    ter_ind := 252;
+elif i eq 5 then
+    ini_ind := 231;
+    ter_ind := 315;
+end if;
+
+ram := 6;
+ram_divs := RamDivisor(ram);
+
+for d in ram_divs[ini_ind..ter_ind] do
+    R,mR := RayClassGroup(d);
+    gens := SetToIndexedSet(Generators(R));
+    U1 := sub<R| [2*g : g in gens]>;
+    V := VectorSpace(GF(2), #gens);
+    for v in V do
+        if v eq V!0 then
+            continue;
+        else
+            m := Depth(v); //first nonzero entry of v
+            U2:= sub<R|[gens[i1] - (Integers()! v[i1])*gens[m] : i1 in [1..#gens]]>;
+            U3:= sub<R|[U1, U2]>;
+            Ab:= AbelianExtension(d,U3);
+            F1:= FunctionField(Ab);
+            if Genus(F1) eq 7 then
+                cpc := [NumberOfPlacesOfDegreeOneECF(F1,n) : n in [1..7]];
+                pol:= DefiningPolynomial(RationalExtensionRepresentation(F1));
+                fprintf OutputFileName, "[" cat "%o" cat ",[" cat "%o" cat "]]" cat "\n", cpc,pol;
             end if;
-        end for;
+        end if;
     end for;
 end for;
 
